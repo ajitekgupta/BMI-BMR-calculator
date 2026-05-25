@@ -69,7 +69,6 @@ const typingIndicator = document.getElementById('typing-indicator');
 
 chatToggle.addEventListener('click', () => chatWindow.classList.toggle('hidden'));
 closeChat.addEventListener('click', () => chatWindow.classList.add('hidden'));
-const API_KEY = "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"; // 🔑 Paste your OpenRouter key here
 
 async function fetchAIResponse(userMessage) {
   const url = `https://openrouter.ai/api/v1/chat/completions`;
