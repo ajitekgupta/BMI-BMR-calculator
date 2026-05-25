@@ -69,35 +69,20 @@ const typingIndicator = document.getElementById('typing-indicator');
 
 chatToggle.addEventListener('click', () => chatWindow.classList.toggle('hidden'));
 closeChat.addEventListener('click', () => chatWindow.classList.add('hidden'));
-
 async function fetchAIResponse(userMessage) {
-  const url = `https://openrouter.ai/api/v1/chat/completions`;
+  const url = `/api/chat`; 
 
   try {
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${API_KEY}`
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        model:"liquid/lfm-2.5-1.2b-thinking:free", 
-        messages: [
-          {
-            role: "system",
-            content: "You are a helpful health and fitness assistant. Keep your answers under 3 sentences. Only answer questions related to BMI, BMR, calories, and fitness. If the user asks anything unrelated, politely say you can only help with health and fitness topics."
-          },
-          {
-            role: "user",
-            content: userMessage
-          }
-        ]
-      })
+      body: JSON.stringify({ message: userMessage }) 
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      return `API Error: ${errorData.error.message}`;
+      return "API Error: Could not connect to the assistant.";
     }
 
     const data = await response.json();
